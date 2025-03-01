@@ -1,17 +1,20 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "declaration": true,
     "outDir": "dist",
+    "rootDir": ".",
     "strict": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true
   },
   "include": [
-    "src"
+    "src",
+    "types",
+    "tests"
   ],
   "exclude": [
     "node_modules",

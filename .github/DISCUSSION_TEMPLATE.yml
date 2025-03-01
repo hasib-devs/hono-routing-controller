@@ -1,0 +1,14 @@
+title: "[DISCUSSION] "
+labels: ["discussion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Discussion Guidelines
+        - Be respectful
+        - Stay on topic
+        - Reference existing issues
+  - type: textarea
+    attributes:
+      label: "Discussion Topic"
+      description: "What would you like to discuss?"
