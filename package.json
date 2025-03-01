@@ -1,5 +1,5 @@
 {
-  "name": "@hasib-devs/hono-routing-controller",
+  "name": "hono-routing-controller",
   "version": "0.0.3",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
@@ -12,9 +12,13 @@
     "dist",
     "src"
   ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --watch"
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "hono",
@@ -41,6 +45,6 @@
     "url": "git://github.com/hasib-devs/hono-routing-controller.git"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org"
+    "@hasib-devs:registry": "https://registry.npmjs.org"
   }
 }
