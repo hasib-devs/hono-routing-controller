@@ -1,5 +1,5 @@
 {
-  "name": "hono-routing-controller",
+  "name": "@hasib-devs/hono-routing-controller",
   "version": "0.0.3",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
