@@ -1,6 +1,7 @@
 name: Release to npm
 
 on:
+  workflow_dispatch:
   release:
     types: [created] # Runs only when a new GitHub Release is created
 
