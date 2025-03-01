@@ -1,0 +1,43 @@
+{
+  "name": "hono-routing-controller",
+  "version": "0.0.1",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch"
+  },
+  "keywords": [
+    "hono",
+    "routing",
+    "controller",
+    "typescript",
+    "middleware",
+    "dependency-injection"
+  ],
+  "author": "Hasibur Rahman",
+  "license": "MIT",
+  "description": "A routing controller package for Hono.js",
+  "dependencies": {
+    "hono": "^4.7.2",
+    "reflect-metadata": "^0.2.2"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.11.5",
+    "@types/node": "^22.13.7",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hasib-devs/hono-routing-controller.git"
+  }
+}
