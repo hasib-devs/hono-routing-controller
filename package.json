@@ -45,6 +45,6 @@
     "url": "git://github.com/hasib-devs/hono-routing-controller.git"
   },
   "publishConfig": {
-    "@hasib-devs:registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org"
   }
 }
