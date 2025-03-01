@@ -16,9 +16,13 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --minify --sourcemap",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch --sourcemap",
+    "test": "node --loader ts-node/esm --test",
+    "test:watch": "node --loader ts-node/esm --test --watch",
+    "test:coverage": "node --experimental-test-coverage --loader ts-node/esm --test",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "keywords": [
     "hono",
@@ -35,9 +39,17 @@
     "hono": "^4.7.2",
     "reflect-metadata": "^0.2.2"
   },
+  "peerDependencies": {
+    "hono": "^4.7.2"
+  },
   "devDependencies": {
     "@swc/core": "^1.11.5",
     "@types/node": "^22.13.7",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "eslint": "^9.21.0",
+    "globals": "^16.0.0",
+    "ts-node": "^10.9.2",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2"
   },

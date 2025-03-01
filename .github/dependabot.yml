@@ -3,11 +3,10 @@ updates:
   - package-ecosystem: npm
     directory: "/"
     schedule:
-      interval: daily
+      interval: weekly
       time: "10:00"
-      timezone: Europe/Budapest
+      timezone: "Asia/Dhaka"
     open-pull-requests-limit: 5
     versioning-strategy: increase
     commit-message:
-      prefix: build
-      include: scope
+      prefix: "chore(deps)"
