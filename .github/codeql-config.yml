@@ -1,0 +1,8 @@
+paths:
+  - "src"
+
+paths-ignore:
+  - "node_modules"
+  - "dist"
+  - "tests"
+  - "**/*.spec.ts"
