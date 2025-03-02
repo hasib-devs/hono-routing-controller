@@ -2,7 +2,9 @@ name: Test Lint and Build
 
 on:
   push:
-    branches: ["develop", "main"]
+    branches:
+      - main
+      # - develop
 
 jobs:
   test:
