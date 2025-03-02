@@ -1,14 +1,14 @@
-name: Test Lint and Build
+name: Debug
 
 on:
   push:
     branches:
       - main
-      # - develop
+      - next
 
 jobs:
-  test:
-    name: Test
+  debug:
+    name: Debug
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

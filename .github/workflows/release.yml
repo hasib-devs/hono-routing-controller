@@ -4,10 +4,6 @@ on:
   repository_dispatch:
     types: [semantic-release]
 
-  # workflow_dispatch:
-  # release:
-  #   types: [created] # Runs only when a new GitHub Release is created
-
 permissions:
   contents: read
 
@@ -64,8 +60,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
-
-      # - name: Publish to npm
-      #   run: pnpm publish --access public
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
