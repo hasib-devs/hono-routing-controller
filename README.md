@@ -40,6 +40,14 @@ pnpm install hono reflect-metadata
 import 'reflect-metadata';
 ```
 
+4. Its important to set these options in `tsconfig.json` file of your project:
+```json
+{
+  "emitDecoratorMetadata": true,
+  "experimentalDecorators": true
+}
+```
+
 # 🚀 Quick Start
 
 ### 1. Create Controller

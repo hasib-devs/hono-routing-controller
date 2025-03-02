@@ -34,7 +34,6 @@ export default [
       'no-debugger': 'error',
       'eqeqeq': ['error', 'always'],
       'curly': 'error',
-      'arrow-body-style': ['error', 'as-needed'],
       
       // New ESLint 9.x rules
       'no-constant-binary-expression': 'error',

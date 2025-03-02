@@ -13,14 +13,14 @@
     "src"
   ],
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean --minify --sourcemap",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --watch --sourcemap",
-    "test": "node --loader ts-node/esm --test",
-    "test:watch": "node --loader ts-node/esm --test --watch",
-    "test:coverage": "node --experimental-test-coverage --loader ts-node/esm --test",
+    "build": "tsup src/index.ts",
+    "dev": "tsup src/index.ts --watch",
+    "test": "tsx --test tests/**/*.spec.ts",
+    "test:watch": "tsx --test --watch tests/**/*.spec.ts",
+    "test:coverage": "tsx --test --experimental-test-coverage tests/**/*.spec.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -49,10 +49,11 @@
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
     "eslint": "^9.21.0",
+    "fast-glob": "^3.3.3",
     "globals": "^16.0.0",
     "semantic-release": "^24.2.3",
-    "ts-node": "^10.9.2",
     "tsup": "^8.4.0",
+    "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   },
   "repository": {
