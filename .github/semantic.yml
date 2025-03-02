@@ -1,8 +1,10 @@
 titleAndCommits: true
 allowMergeCommits: false
 scopes:
-  - deps
-  - deps-dev
+  - core
+  - api
+  - common
+  - chore
 types:
   - feat
   - fix
