@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import 'reflect-metadata';
 import { defaultOptions, MetadataKey } from './constants';
-import { Container } from './core/DIContainer';
+import { container } from "tsyringe";
 
 type HonoMethod = 'get' | 'post' | 'put' | 'delete' | 'patch';
 
@@ -15,7 +15,7 @@ export const useRoutingController = <T extends new () => any>(app: Hono, options
     if (options.controllers?.length) {
         options.controllers.forEach(controller => {
             const controllerPath: string = Reflect.getMetadata(MetadataKey.Controller, controller) || '';
-            const instance = Container.resolve<InstanceType<T>>(controller.name);
+            const instance = container.resolve<InstanceType<T>>(controller.name);
 
             const newApp = new Hono();
 
