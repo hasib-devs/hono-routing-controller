@@ -1,18 +1,32 @@
 name: CodeQL
-on: [pull_request]
+
+on:
+  push:
+    branches: ["develop", "main"]
 
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Cache CodeQL Database
+        uses: actions/cache@v3
+        with:
+          path: ~/codeql-db # Store the CodeQL database
+          key: codeql-db-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            codeql-db-${{ runner.os }}-
+
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           languages: typescript
+          config-file: .github/codeql-config.yml
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3

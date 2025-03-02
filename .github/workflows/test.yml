@@ -1,13 +1,12 @@
-name: Release to npm
+name: Test Lint and Build
 
 on:
-  workflow_dispatch:
-  release:
-    types: [created] # Runs only when a new GitHub Release is created
+  push:
+    branches: ["develop", "main"]
 
 jobs:
-  build:
-    name: Build
+  test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -37,11 +36,3 @@ jobs:
 
       - name: Build package
         run: pnpm build
-
-      - name: Authenticate npm
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ${{ github.workspace }}/.npmrc
-
-      - name: Publish to npm
-        run: pnpm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
