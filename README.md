@@ -25,8 +25,19 @@ Current status: **Proof of Concept** stage. Core functionality is being validate
 
 ## Installation
 
+1. Install the package:
 ```bash
-npm install hono-routing-controllers
+pnpm install hono-routing-controllers
+```
+
+1. Install required peer dependencies:
+```bash
+pnpm install hono reflect-metadata
+```
+
+3. Add `reflect-metadata` import at the entry point of your application:
+```typescript
+import 'reflect-metadata';
 ```
 
 # 🚀 Quick Start
@@ -90,9 +101,9 @@ useRoutingController(
 ### � Development
 
 ```bash
-npm run dev
-npm run build
-npm run test
+pnpm run dev
+pnpm run build
+pnpm run test
 ```
 
 ## 🛑 Current Limitations

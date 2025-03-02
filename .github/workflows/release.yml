@@ -1,17 +1,29 @@
-name: Release to npm
+name: Release
 
 on:
   workflow_dispatch:
   release:
     types: [created] # Runs only when a new GitHub Release is created
 
+permissions:
+  contents: read
+
 jobs:
-  build:
-    name: Build
+  release:
+    name: Release
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -29,6 +41,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
+        run: pnpm audit signatures
+
       - name: Run lint
         run: pnpm lint
 
@@ -41,7 +56,13 @@ jobs:
       - name: Authenticate npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ${{ github.workspace }}/.npmrc
 
-      - name: Publish to npm
-        run: pnpm publish --access public
+      - name: Release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
+
+      # - name: Publish to npm
+      #   run: pnpm publish --access public
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

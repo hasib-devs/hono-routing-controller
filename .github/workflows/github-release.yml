@@ -1,14 +1,13 @@
-name: Test Lint and Build
+name: Release to npm
 
 on:
-  push:
-    branches:
-      - main
-      # - develop
+  workflow_dispatch:
+  release:
+    types: [created] # Runs only when a new GitHub Release is created
 
 jobs:
-  test:
-    name: Test
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
