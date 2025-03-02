@@ -14,6 +14,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Cache CodeQL Database
+        uses: actions/cache@v3
+        with:
+          path: ~/codeql-db # Store the CodeQL database
+          key: codeql-db-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            codeql-db-${{ runner.os }}-
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
