@@ -5,7 +5,8 @@ on:
     branches: ["develop", "main"]
 
 jobs:
-  build:
+  test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
