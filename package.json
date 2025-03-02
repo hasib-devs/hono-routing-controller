@@ -44,6 +44,12 @@
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.1",
+    "@semantic-release/npm": "^12.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.3",
     "@swc/core": "^1.11.5",
     "@types/node": "^22.13.8",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
@@ -59,6 +65,7 @@
     "url": "git://github.com/hasib-devs/hono-routing-controller.git"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   }
 }
