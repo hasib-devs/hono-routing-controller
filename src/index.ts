@@ -3,6 +3,6 @@
 // Main exports
 // -------------------------------------------------------------------------
 
-export * from './core/createHonoServer';
+export * from './core/useRoutingController';
 
 
