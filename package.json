@@ -36,12 +36,10 @@
   "license": "MIT",
   "description": "A routing controller package for Hono.js",
   "dependencies": {
-    "hono": "^4.7.2",
     "reflect-metadata": "^0.2.2",
     "tsyringe": "^4.8.0"
   },
   "peerDependencies": {
-    "hono": "^4.7.2",
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
