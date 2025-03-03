@@ -1,6 +1,7 @@
 export abstract class BaseDriver {
-    app: any;
+    abstract app: any;
     routePrefix: string = '';
+    controllers: any[] = [];
 
     abstract initialize(): void;
     abstract registerRoutes(): void;
