@@ -1,17 +1,42 @@
-import { inject } from "tsyringe";
-import { AppCore } from "../core/AppCore";
-import { BaseDriver } from "./BaseDriver";
+import type { Context, Hono } from "hono";
+import { defaultOptions } from "../constants";
+import type { RoutingOptions } from "../types";
 
-export class HonoDriver extends BaseDriver {
-    constructor(@inject("App") private appCore: AppCore, public app: any, public basePath?: string) {
-        super();
+export class HonoDriver {
+    app!: Hono;
+    options!: RoutingOptions;;
+
+    async initialize(instance?: Hono, options?: RoutingOptions): Promise<void> {
+        this.options = { ...defaultOptions, ...options };
+
+        if (!instance) {
+            this.app = await this.createHonoInstance();
+        } else {
+            this.app = instance;
+        }
+
+        await this.registerRoutes();
+
     }
 
-    initialize(): void {
-        console.log("Hello from package again");
-        // throw new Error("Method not implemented.");
+    async registerRoutes(): Promise<void> {
+        const instance = await this.createHonoInstance();
+        instance.get('', (ctx: Context) => {
+            return ctx.json({ message: "Hello Api" });
+        });
+
+        this.app.route(this.options.basePath ?? '', instance);
     }
-    registerRoutes(): void {
-        throw new Error("Method not implemented.");
+
+    async createHonoInstance(): Promise<Hono> {
+        try {
+            const honoModule = await import("hono");
+            return new honoModule.Hono();
+        } catch {
+            throw new Error(
+                "Hono is not installed. Please install it in your project: npm install hono"
+            );
+        }
     }
+
 }

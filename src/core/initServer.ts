@@ -1,8 +1,9 @@
 import { defaultOptions } from "../constants";
 import { HonoDriver } from "../driver/HonoDriver";
 
-export function createServer(app: any, options = defaultOptions): void {
+export function initServer(options = defaultOptions) {
     const driver = new HonoDriver();
+    driver.initialize(undefined, options);
 
-    driver.initialize(app, options);
+    // return driver.app;
 }
