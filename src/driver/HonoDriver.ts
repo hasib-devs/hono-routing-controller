@@ -1,7 +1,9 @@
-import type { Context, Hono } from "hono";
+import type { Context } from "hono";
+import { Hono } from "hono";
 import { defaultOptions } from "../constants";
 import type { RoutingOptions } from "../types";
-
+import { injectable } from "tsyringe";
+@injectable()
 export class HonoDriver {
     app!: Hono;
     options!: RoutingOptions;;
@@ -10,7 +12,7 @@ export class HonoDriver {
         this.options = { ...defaultOptions, ...options };
 
         if (!instance) {
-            this.app = await this.createHonoInstance();
+            this.app = new Hono();
         } else {
             this.app = instance;
         }
@@ -19,24 +21,13 @@ export class HonoDriver {
 
     }
 
-    async registerRoutes(): Promise<void> {
-        const instance = await this.createHonoInstance();
-        instance.get('', (ctx: Context) => {
+    private async registerRoutes(): Promise<void> {
+        const hono = new Hono();
+        hono.get('', (ctx: Context) => {
             return ctx.json({ message: "Hello Api" });
         });
 
-        this.app.route(this.options.basePath ?? '', instance);
-    }
-
-    async createHonoInstance(): Promise<Hono> {
-        try {
-            const honoModule = await import("hono");
-            return new honoModule.Hono();
-        } catch {
-            throw new Error(
-                "Hono is not installed. Please install it in your project: npm install hono"
-            );
-        }
+        this.app.route(this.options.basePath ?? '', hono);
     }
 
 }
