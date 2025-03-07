@@ -1,9 +1,9 @@
 import type { Context } from "hono";
 import { Hono } from "hono";
+import { singleton } from "tsyringe";
 import { defaultOptions } from "../constants";
 import type { RoutingOptions } from "../types";
-import { injectable } from "tsyringe";
-@injectable()
+@singleton()
 export class HonoDriver {
     app!: Hono;
     options!: RoutingOptions;;
