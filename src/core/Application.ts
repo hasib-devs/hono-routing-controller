@@ -1,8 +1,8 @@
 import { Hono } from "hono";
-import type { RouteMetadata, ServerOptions } from "../types";
-import { defaultOptions } from "../utils/constants";
-import { controllerMetadata, routeMetadata } from "../utils/meta-data";
-import { Container } from "../di/Container";
+import type { RouteMetadata, ServerOptions } from "@/types";
+import { defaultOptions } from "@/utils/constants";
+import { controllerMetadata, routeMetadata } from "@/utils/meta-data";
+import { Container } from "@/di/Container";
 
 export class Application {
     private readonly app: Hono;

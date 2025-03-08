@@ -1,4 +1,4 @@
-import type { ServerOptions } from "../types";
+import type { ServerOptions } from "@/types";
 
 export const defaultOptions: ServerOptions = {
     basePath: "",

@@ -1,4 +1,4 @@
-import { routeMetadata } from "../utils/meta-data";
+import { routeMetadata } from "@/utils/meta-data";
 
 function createMethodDecorator(method: string) {
     return (path: string) => {

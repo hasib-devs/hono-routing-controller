@@ -1,6 +1,7 @@
-import { Container } from "../di/Container";
+import { Container } from "@/di/Container";
+import { injectionMetadata } from "@/utils/meta-data";
 
-export const injectionMetadata = new WeakMap<object, unknown[]>();
+
 
 export function Inject(token: unknown) {
     return (target: object, _: string | symbol, parameterIndex: number) => {

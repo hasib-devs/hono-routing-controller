@@ -1,5 +1,5 @@
-import { Container } from "../di/Container";
-import { controllerMetadata } from "../utils/meta-data";
+import { Container } from "@/di/Container";
+import { controllerMetadata } from "@/utils/meta-data";
 
 export function Controller(path: string) {
     return (target: object) => {

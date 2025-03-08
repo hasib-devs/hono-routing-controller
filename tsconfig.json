@@ -9,7 +9,12 @@
     "strict": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+    }
   },
   "include": [
     "src",
@@ -18,5 +23,5 @@
   "exclude": [
     "node_modules",
     "dist"
-  ]
+  ],
 }
