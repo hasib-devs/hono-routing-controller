@@ -3,3 +3,9 @@ export interface RoutingOptions {
     controllers?: any[];
     middlewares?: any[];
 }
+
+export type RouteMetadata = {
+    method: string;
+    path: string;
+    handler: string;
+};

@@ -37,9 +37,7 @@
   "description": "A routing controller package for Hono.js",
   "dependencies": {},
   "peerDependencies": {
-    "hono": "^4.7.2",
-    "tsyringe": "^4.8.0",
-    "reflect-metadata": "^0.2.2"
+    "hono": "^4.7.2"
   },
   "devDependencies": {
     "@swc/core": "^1.11.5",
