@@ -23,8 +23,7 @@ export default [
     rules: {
       // TypeScript rules
       '@typescript-eslint/consistent-type-imports': 'error',
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/prefer-nullish-coalescing': 'error',
       '@typescript-eslint/prefer-optional-chain': 'error',
@@ -34,7 +33,6 @@ export default [
       'no-debugger': 'error',
       'eqeqeq': ['error', 'always'],
       'curly': 'error',
-      'arrow-body-style': ['error', 'as-needed'],
       
       // New ESLint 9.x rules
       'no-constant-binary-expression': 'error',

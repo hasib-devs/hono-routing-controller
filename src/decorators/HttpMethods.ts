@@ -1,13 +1,17 @@
-import { MetadataKey } from '../constants';
+import { routeMetadata } from "../utils/meta-data";
 
-function createMethodDecorator(method: string, path: string = '') {
-    return (target: any, key: string, _: PropertyDescriptor) => {
-        Reflect.defineMetadata(MetadataKey.Route, { method, path }, target, key);
+function createMethodDecorator(method: string) {
+    return (path: string) => {
+        return (target: object, handlerName: string) => {
+            const routes = routeMetadata.get(target.constructor) ?? [];
+            routes.push({ method, path, handler: handlerName });
+            routeMetadata.set(target.constructor, routes);
+        };
     };
 }
 
-export const Get = (path: string = '') => createMethodDecorator('get', path);
-export const Post = (path: string = '') => createMethodDecorator('post', path);
-export const Put = (path: string = '') => createMethodDecorator('put', path);
-export const Patch = (path: string = '') => createMethodDecorator('patch', path);
-export const Delete = (path: string = '') => createMethodDecorator('delete', path);
+export const Get = createMethodDecorator("GET");
+export const Post = createMethodDecorator("POST");
+export const Put = createMethodDecorator("PUT");
+export const Delete = createMethodDecorator("DELETE");
+export const Patch = createMethodDecorator("PATCH");

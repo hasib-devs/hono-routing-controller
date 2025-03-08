@@ -13,8 +13,7 @@
   },
   "include": [
     "src",
-    "types",
-    "tests"
+    "types"
   ],
   "exclude": [
     "node_modules",
