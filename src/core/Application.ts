@@ -4,7 +4,7 @@ import { defaultOptions } from "../utils/constants";
 import { controllerMetadata, routeMetadata } from "../utils/meta-data";
 import { Container } from "../di/Container";
 
-export class Server {
+export class Application {
     private readonly app: Hono;
     private readonly options: ServerOptions;
 
@@ -13,8 +13,8 @@ export class Server {
         this.options = { ...defaultOptions, ...options };
     }
 
-    public static create(app: Hono, options: ServerOptions): Server {
-        const instance = new Server(app, options);
+    public static initialize(app: Hono, options: ServerOptions): Application {
+        const instance = new Application(app, options);
         instance.registerControllers();
         return instance;
     }
