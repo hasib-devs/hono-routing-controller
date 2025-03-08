@@ -1,4 +1,4 @@
-import { Container } from "../core/Container";
+import { Container } from "../di/Container";
 
 export const injectionMetadata = new WeakMap<object, unknown[]>();
 

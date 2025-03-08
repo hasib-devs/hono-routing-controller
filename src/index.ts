@@ -5,7 +5,7 @@
 
 // -------------------------------------------------------------------------
 
-export * from './core/Container';
+export * from './di/Container';
 export * from './core/createServer';
 export * from './decorators/Controller';
 export * from './decorators/HttpMethods';

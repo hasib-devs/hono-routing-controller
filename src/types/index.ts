@@ -1,8 +1,8 @@
-export interface RoutingOptions {
+export type ServerOptions = {
     basePath?: string;
     controllers?: any[];
     middlewares?: any[];
-}
+};
 
 export type RouteMetadata = {
     method: string;
