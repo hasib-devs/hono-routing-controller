@@ -12,9 +12,9 @@ export class Container {
     static register<T>(
         token: object,
         factory: Factory<T>,
-        lifetime: Lifetime = "singleton"
+        scope: Lifetime = "singleton"
     ) {
-        this.dependencies.set(token, { factory, lifetime });
+        this.dependencies.set(token, { factory, lifetime: scope });
     }
 
     static resolve<T extends object>(token: T): T {

@@ -1,5 +1,4 @@
-import { Container } from "@/di/Container";
-import type { Constructor, Lifetime } from "@/types";
+import type { Lifetime } from "@/types";
 import { injectionMetadata } from "@/utils/meta-data";
 
 type InjectableOptions = {
@@ -7,11 +6,20 @@ type InjectableOptions = {
     token?: object; // For interface-based DI
 };
 
-export function Inject(token: unknown) {
-    return (target: object, _: string | symbol, parameterIndex: number) => {
-        const metadata = injectionMetadata.get(target) ?? [];
-        metadata[parameterIndex] = token;
-        injectionMetadata.set(target, metadata);
+export function Inject<T>(token: T) {
+    return (
+        target: object,
+        _propertyKey: string | symbol | undefined,
+        parameterIndex: number
+    ) => {
+        if (_propertyKey === undefined) {
+            // Store metadata on the class constructor
+            const ctor = target.constructor;
+            const metadata = injectionMetadata.get(ctor) ?? [];
+
+            metadata[parameterIndex] = token;
+            injectionMetadata.set(ctor, metadata);
+        }
     };
 }
 
@@ -20,38 +28,34 @@ export function Injectable(options?: InjectableOptions) {
         const token = options?.token ?? target;
         const lifetime = options?.lifetime ?? "singleton";
 
-        // Register the class in the container
-        Container.register(
-            token,
-            () => {
-                // Use the existing createInstance function for dependency resolution
-                return createInstance(target);
-            },
-            lifetime
-        );
-
-        // Store original constructor for potential edge cases
-        target.__originalConstructor = target.prototype.constructor;
-
+        // Preserve original constructor for inheritance
+        target.__originalConstructor = target;
+        // console.log({ target, token, lifetime, instance: createInstance(target) });
+        // Container.register(
+        //     token,
+        //     () => createInstance(target),
+        //     lifetime
+        // );
     };
 }
 
 
-function createInstance<T>(constructor: Constructor<T>): T {
-    // Use original constructor if available
-    const ctor = constructor.prototype?.__originalConstructor || constructor;
-    const metadata: any[] = injectionMetadata.get(ctor) ?? [];
+// function createInstance<T>(constructor: Constructor<T>): T {
+//     // Get metadata from the constructor directly
+//     const metadata: any[] = injectionMetadata.get(constructor) ?? [];
 
-    const args = metadata.map((token) => {
-        try {
-            return Container.resolve(token);
-        } catch (error) {
-            if (error instanceof Error) {
-                throw new Error(`Error resolving ${token}: ${error.message}`);
-            }
-            throw error;
-        }
-    });
+//     console.log({ metadata });
 
-    return new ctor(...args);
-}
+//     const args = metadata.map(token => {
+//         try {
+//             return Container.resolve(token);
+//         } catch (error) {
+//             if (error instanceof Error) {
+//                 throw new Error(`Dependency resolution failed: ${error.message}`);
+//             }
+//             throw error;
+//         }
+//     });
+
+//     return new constructor(...args);
+// }
