@@ -11,6 +11,13 @@ export function Inject(token: unknown) {
     };
 }
 
+export function Injectable() {
+    return (constructor: new (...args: any[]) => any) => {
+        Container.register(constructor, () => createInstance(constructor));
+    };
+}
+
+
 export function createInstance<T>(constructor: new (...args: any[]) => T): T {
     const metadata = injectionMetadata.get(constructor) ?? [];
     const args = metadata.map((token) => {

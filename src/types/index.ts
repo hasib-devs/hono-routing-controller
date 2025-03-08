@@ -1,6 +1,6 @@
 export type ServerOptions = {
     basePath?: string;
-    controllers?: any[];
+    controllers?: Function[];
     middlewares?: any[];
 };
 

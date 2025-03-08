@@ -3,6 +3,7 @@ import type { RouteMetadata, ServerOptions } from "@/types";
 import { defaultOptions } from "@/utils/constants";
 import { controllerMetadata, routeMetadata } from "@/utils/meta-data";
 import { Container } from "@/di/Container";
+import { Logger } from "@/utils/logger";
 
 export class Application {
     private readonly app: Hono;
@@ -26,6 +27,7 @@ export class Application {
             const routes = routeMetadata.get(Controller) ?? [];
             const instance = Container.resolve(Controller);
 
+            Logger.success(`${Controller.name}: ${controllerPath}`);
             const controllerGroup = new Hono();
 
             for (const route of routes) {
@@ -36,7 +38,7 @@ export class Application {
 
         this.app.route(this.options.basePath ?? '', baseGroup);
     }
-    private getControllerPath(Controller: any): string {
+    private getControllerPath(Controller: Function): string {
         const path = controllerMetadata.get(Controller) ?? "";
         return path.replace(/\/$/, ""); // Normalize trailing slash
     }
@@ -48,6 +50,8 @@ export class Application {
     ): void {
         const { method, path, handler } = route;
         const normalizedPath = path === "/" ? "" : path;
+
+        Logger.info(`${method.toUpperCase()}: "${normalizedPath}"`);
 
         group.on(
             method.toUpperCase(),

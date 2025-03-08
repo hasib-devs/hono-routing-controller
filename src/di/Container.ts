@@ -16,7 +16,7 @@ export class Container {
         this.registry.set(token, { factory, lifetime });
     }
 
-    static resolve<T>(token: unknown): T {
+    static resolve<T>(token: T): T {
         // Detect circular dependencies
         if (this.resolutionStack.includes(token)) {
             const cycleStart = this.resolutionStack.indexOf(token);
