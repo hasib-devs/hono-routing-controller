@@ -1,4 +1,6 @@
 export type Constructor<T = {}> = new (...args: any[]) => T;
+export type Factory<T> = () => T;
+export type Lifetime = "singleton" | "transient";
 
 
 export type ServerOptions = {

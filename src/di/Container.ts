@@ -1,57 +1,58 @@
-type Provider<T = any> = {
-    factory: () => T;
-    lifetime: "singleton" | "transient";
-};
+import type { Factory, Lifetime } from "@/types";
+
+interface Dependency<T = any> {
+    lifetime: Lifetime;
+    factory: Factory<T>;
+    instance?: T;
+}
 
 export class Container {
-    private static registry = new Map<unknown, Provider>();
-    private static instances = new WeakMap<object, unknown>();
-    private static resolutionStack: unknown[] = []; // Track resolution path for circular dependencies
+    private static dependencies = new WeakMap<object, Dependency>();
 
     static register<T>(
-        token: unknown,
-        factory: () => T,
-        lifetime: "singleton" | "transient" = "singleton"
+        token: object,
+        factory: Factory<T>,
+        lifetime: Lifetime = "singleton"
     ) {
-        this.registry.set(token, { factory, lifetime });
+        this.dependencies.set(token, { factory, lifetime });
     }
 
-    static resolve<T>(token: T): T {
-        // Detect circular dependencies
-        if (this.resolutionStack.includes(token)) {
-            const cycleStart = this.resolutionStack.indexOf(token);
-            const cyclePath = [
-                ...this.resolutionStack.slice(cycleStart),
-                token
-            ].map(t => this.getTokenName(t)).join(' -> ');
-
-            throw new Error(`Circular dependency detected: ${cyclePath}`);
-        }
-
+    static resolve<T extends object>(token: T): T {
         try {
-            this.resolutionStack.push(token);
-            const provider = this.registry.get(token);
-            if (!provider) { throw new Error(`No provider for token: ${String(token)}`); };
-
-            // Handle singleton lifetime
-            if (provider.lifetime === "singleton") {
-                if (!this.instances.has(token as object)) {
-                    this.instances.set(token as object, provider.factory());
-                }
-                return this.instances.get(token as object) as T;
+            const dep = this.dependencies.get(token);
+            if (!dep) {
+                throw new Error(`Dependency ${token} not registered`);
             }
 
-            // Transient lifetime
-            return provider.factory() as T;
-        } finally {
-            // Clean up stack even if errors occur
-            this.resolutionStack.pop();
+            if (dep.lifetime === "singleton") {
+                if (!dep.instance) {
+                    dep.instance = dep.factory();
+                }
+                return dep.instance;
+            }
+
+            return dep.factory();
+        } catch (error) {
+            if (error instanceof Error) {
+                throw new Error(`Error resolving ${token}: ${error.message}`);
+            }
+            throw error;
         }
     }
 
-    private static getTokenName(token: unknown): string {
-        if (typeof token === 'function') { return token.name || 'AnonymousClass'; };
-        if (typeof token === 'symbol') { return token.toString(); };
-        return String(token);
+    static async resolveAsync<T>(token: object): Promise<T> {
+        const dep = this.dependencies.get(token);
+        if (!dep) {
+            throw new Error(`Dependency ${token} not found`);
+        };
+
+        if (dep.lifetime === "singleton") {
+            if (!dep.instance) {
+                dep.instance = await dep.factory();
+            }
+            return dep.instance;
+        }
+
+        return await dep.factory();
     }
 }
