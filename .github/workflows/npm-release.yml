@@ -1,23 +1,13 @@
-name: Release
+name: Release to npm
 
 on:
-  repository_dispatch:
-    types: [semantic-release]
-
-permissions:
-  contents: read
+  release:
+    types: [created]
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write # to be able to publish a GitHub release
-      issues: write # to be able to comment on released issues
-      pull-requests: write # to be able to comment on released pull requests
-      id-token: write # to enable use of OIDC for npm provenance
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -55,8 +45,7 @@ jobs:
       - name: Authenticate npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ${{ github.workspace }}/.npmrc
 
-      - name: Release
+      - name: Publish package on NPM
+        run: npm publish --access public
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN}}
