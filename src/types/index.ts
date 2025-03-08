@@ -1,6 +1,9 @@
+export type Constructor<T = {}> = new (...args: any[]) => T;
+
+
 export type ServerOptions = {
     basePath?: string;
-    controllers?: Function[];
+    controllers?: Constructor[];
     middlewares?: any[];
 };
 

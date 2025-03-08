@@ -1,5 +1,5 @@
 import { Application } from './core/Application';
-import type { ServerOptions } from './types';
+import type { Constructor, ServerOptions } from './types';
 
 // -------------------------------------------------------------------------
 // Main exports

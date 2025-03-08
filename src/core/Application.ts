@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import type { RouteMetadata, ServerOptions } from "@/types";
+import type { Constructor, RouteMetadata, ServerOptions } from "@/types";
 import { defaultOptions } from "@/utils/constants";
 import { controllerMetadata, routeMetadata } from "@/utils/meta-data";
 import { Container } from "@/di/Container";
@@ -38,7 +38,7 @@ export class Application {
 
         this.app.route(this.options.basePath ?? '', baseGroup);
     }
-    private getControllerPath(Controller: Function): string {
+    private getControllerPath(Controller: Constructor): string {
         const path = controllerMetadata.get(Controller) ?? "";
         return path.replace(/\/$/, ""); // Normalize trailing slash
     }

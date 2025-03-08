@@ -26,6 +26,6 @@ export class Logger {
     }
 
     public static debug(message: string): void {
-        console.log(`\x1b[34mDEBUG: ${message}\x1b[0m`);
+        console.log(`\x1b[35mDEBUG: ${message}\x1b[0m`);
     }
 }
