@@ -44,7 +44,7 @@
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
-    "@swc/core": "^1.11.5",
+    "@swc/core": "^1.11.8",
     "@types/node": "^22.13.8",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
